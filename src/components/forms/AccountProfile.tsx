@@ -14,10 +14,13 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '../ui/textarea'
 import { isBase64Image } from '@/lib/utils'
+import { updateUser } from '@/lib/actions/users/updateUser.action'
+import { usePathname, useRouter } from 'next/navigation'
 
 type AccountProfileProps = {
 	user: {
@@ -33,6 +36,8 @@ type AccountProfileProps = {
 
 function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 	const [files, setFiles] = useState<File[]>([])
+	const pathname = usePathname()
+	const router = useRouter()
 
 	const { startUpload } = useUploadThing('media')
 
@@ -75,6 +80,7 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 		const blob = values.profile_photo
 		const hasImageChanged = isBase64Image(blob)
 
+		// upload the image using uploadthing
 		if (hasImageChanged) {
 			const imgRes = await startUpload(files)
 
@@ -83,7 +89,19 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 			}
 		}
 
-		// TODO: update user profile on the backend later
+		updateUser({
+			id: user.id,
+			username: values.username,
+			name: values.name,
+			image: values.profile_photo,
+			bio: values.bio,
+		})
+
+		if (pathname === '/profile/edit') {
+			router.back()
+		} else {
+			router.push('/')
+		}
 	}
 
 	return (
@@ -145,6 +163,7 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 									{...field}
 								/>
 							</FormControl>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
@@ -164,6 +183,7 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 									{...field}
 								/>
 							</FormControl>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
@@ -183,6 +203,7 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 									{...field}
 								/>
 							</FormControl>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
