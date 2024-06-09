@@ -5,15 +5,11 @@ import React from 'react'
 async function Page() {
 	const user = await currentUser()
 
-	const userInfo = {}
-
 	const userData = {
-		id: user?.id,
-		objectId: userInfo?.objectId,
-		username: userInfo?.username || user?.username,
-		name: userInfo?.name || user?.firstName || '',
-		bio: userInfo?.bio || '',
-		image: userInfo?.imageUrl || user?.imageUrl,
+		id: user?.id as string,
+		username: user?.username as string,
+		name: user?.firstName as string,
+		image: user?.imageUrl as string,
 	}
 
 	return (

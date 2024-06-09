@@ -25,13 +25,13 @@ import { usePathname, useRouter } from 'next/navigation'
 type AccountProfileProps = {
 	user: {
 		id: string
-		objectId: string
+		objectId?: string
 		username: string
 		name: string
-		bio: string
+		bio?: string
 		image: string
 	}
-	btnTitle: string
+	btnTitle?: string
 }
 
 function AccountProfile({ user, btnTitle }: AccountProfileProps) {
@@ -44,10 +44,10 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 	const form = useForm({
 		resolver: zodResolver(UserValidation),
 		defaultValues: {
-			profile_photo: user.image || '',
-			name: user.name || '',
-			username: user.username || '',
-			bio: user.bio || '',
+			profile_photo: user?.image ? user.image : '',
+			name: user?.name ? user.name : '',
+			username: user?.username ? user.username : '',
+			bio: user?.bio ? user.bio : '',
 		},
 	})
 
@@ -209,7 +209,7 @@ function AccountProfile({ user, btnTitle }: AccountProfileProps) {
 				/>
 
 				<Button type="submit" className="bg-primary-500">
-					Submit
+					{btnTitle || 'Submit'}
 				</Button>
 			</form>
 		</Form>

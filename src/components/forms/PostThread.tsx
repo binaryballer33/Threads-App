@@ -15,8 +15,7 @@ import {
 import { Textarea } from '../ui/textarea'
 import { usePathname, useRouter } from 'next/navigation'
 import { ThreadValidation } from '@/lib/validations/thead'
-import { connectToDB } from '@/lib/mongoose'
-import { createThread } from '@/lib/actions/threads/create-thread'
+import { createThread } from '@/lib/actions/threads/createThread.action'
 
 type PostThreadProps = {
 	userId: string
