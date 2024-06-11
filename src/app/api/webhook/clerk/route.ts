@@ -6,8 +6,8 @@
 // It's a good practice to verify webhooks. Above article shows why we should do it
 import { Webhook, WebhookRequiredHeaders } from "svix";
 import { headers } from "next/headers";
-import { IncomingHttpHeaders } from "http";
 import { NextResponse } from "next/server";
+import { IncomingHttpHeaders } from "http";
 import { addMemberToCommunity } from "@/lib/actions/communities/addMemberToCommunity.action";
 import { createCommunity } from "@/lib/actions/communities/createCommunity.action";
 import { deleteCommunity } from "@/lib/actions/communities/deleteCommunity.action";
