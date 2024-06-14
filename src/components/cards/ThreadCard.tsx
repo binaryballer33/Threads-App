@@ -2,6 +2,7 @@ import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import DeleteThread from "../forms/DeleteThread";
 
 type ThreadCardProps = {
   id: string;
@@ -30,7 +31,6 @@ type ThreadCardProps = {
 
 function ThreadCard(props: ThreadCardProps) {
   const { id, currentUserId, parentId, content, author, community, createdAt, comments, isComment = false } = props;
-  console.log({ props });
 
   return (
     <article className={`flex flex-col w-full p-7 rounded-xl ${isComment ? "xs:px-0 px-7" : "bg-dark-2"}`}>
@@ -91,7 +91,13 @@ function ThreadCard(props: ThreadCardProps) {
             )}
           </div>
         </div>
-        {/* TODO: functionality for deleting a thread */}
+        <DeleteThread
+          threadId={JSON.stringify(id)}
+          currentUserId={currentUserId}
+          authorId={author.id}
+          parentId={parentId}
+          isComment={isComment}
+        />
         {/* TODO: functionality for showing comment logos */}
       </div>
       {!isComment && community && (
