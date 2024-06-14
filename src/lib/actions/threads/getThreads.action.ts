@@ -1,3 +1,4 @@
+import { Community } from "@/lib/models/community.model";
 import { Thread } from "@/lib/models/thread.model";
 import { User } from "@/lib/models/user.model";
 import { connectToDB } from "@/lib/mongoose";
@@ -16,6 +17,10 @@ export async function getThreads(pageNumber = 1, pageSize = 20) {
       .skip(skipAmount)
       .limit(pageSize)
       .populate({ path: "author", model: User }) // get the author of the thread
+      .populate({
+        path: "community",
+        model: Community,
+      })
       .populate({
         path: "author",
         model: User,

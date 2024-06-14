@@ -1,9 +1,9 @@
+import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 type ThreadCardProps = {
-  key: string;
   id: string;
   currentUserId: string;
   parentId: string | null;
@@ -29,7 +29,8 @@ type ThreadCardProps = {
 };
 
 function ThreadCard(props: ThreadCardProps) {
-  const { key, id, currentUserId, parentId, content, author, community, createdAt, comments, isComment } = props;
+  const { id, currentUserId, parentId, content, author, community, createdAt, comments, isComment = false } = props;
+  console.log({ props });
 
   return (
     <article className={`flex flex-col w-full p-7 rounded-xl ${isComment ? "xs:px-0 px-7" : "bg-dark-2"}`}>
@@ -80,14 +81,33 @@ function ThreadCard(props: ThreadCardProps) {
               />
             </div>
 
+            {/* TODO: fix this, I think comments.length is zero, so its causing this not to work */}
             {isComment && comments.length > 0 && (
               <Link href={`/thread/${id}`}>
-                <p className="mt-1 text-subtle-medium text-gray-1">{comments.length} Replies</p>
+                <p className="mt-1 text-subtle-medium text-gray-1">
+                  {comments.length} repl{comments.length > 1 ? "ies" : "y"}
+                </p>
               </Link>
             )}
           </div>
         </div>
+        {/* TODO: functionality for deleting a thread */}
+        {/* TODO: functionality for showing comment logos */}
       </div>
+      {!isComment && community && (
+        <Link href={`/communities/${community.id}`} className="mt-5 flex items-center">
+          <p className="text-subtle-medium text-gray-1">
+            {formatDateString(createdAt.toString())} -{community.name} Community
+          </p>
+          <Image
+            src={community.image}
+            alt={community.name}
+            width={14}
+            height={14}
+            className="object-cover ml-1 rounded-full"
+          />
+        </Link>
+      )}
     </article>
   );
 }

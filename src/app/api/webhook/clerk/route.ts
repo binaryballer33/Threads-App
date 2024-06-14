@@ -16,6 +16,8 @@ import { updateCommunityInfo } from "@/lib/actions/communities/updateCommunityIn
 
 // Resource: https://clerk.com/docs/integration/webhooks#supported-events
 // Above document lists the supported events
+
+//TODO: webhooks are failing when trying to create a community. Need to fix this. check clerk webhook dashboard
 type EventType =
   | "organization.created"
   | "organizationInvitation.created"

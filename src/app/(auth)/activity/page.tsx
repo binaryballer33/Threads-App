@@ -11,7 +11,7 @@ async function ActivityPage() {
 
   if (!user) return null;
   const userInfo = await getUser(user.id);
-  if (!userInfo.onboarded) redirect("/onboarding");
+  if (!userInfo?.onboarded) redirect("/onboarding");
 
   const activities = await getActivity(userInfo._id);
 

@@ -2,6 +2,7 @@ import { getUserPosts } from "@/lib/actions/users/getUserPosts.action";
 import { redirect } from "next/navigation";
 import React from "react";
 import ThreadCard from "../cards/ThreadCard";
+import { getCommunityPosts } from "@/lib/actions/communities/getCommunityPosts.action";
 
 type ThreadsTabProps = {
   accountId: string;
@@ -11,13 +12,19 @@ type ThreadsTabProps = {
 
 async function ThreadsTab(props: ThreadsTabProps) {
   const { accountId, currentUserId, accountType } = props;
-  const userWithPosts = await getUserPosts(accountId);
+  let result: any;
 
-  if (!userWithPosts) redirect("/");
+  if (accountType === "Community") {
+    result = await getCommunityPosts(accountId);
+  } else {
+    result = await getUserPosts(accountId);
+  }
+
+  if (!result) redirect("/");
 
   return (
     <section className="flex flex-col mt-9 gap-10">
-      {userWithPosts.threads.map((thread) => {
+      {result.threads.map((thread) => {
         return (
           <ThreadCard
             key={thread._id}
@@ -27,7 +34,7 @@ async function ThreadsTab(props: ThreadsTabProps) {
             // author={thread.author}
             author={
               accountType === "User"
-                ? { id: userWithPosts.id, name: userWithPosts.name, image: userWithPosts.image }
+                ? { id: result.id, name: result.name, image: result.image }
                 : { id: thread.author?.id, name: thread.author?.name, image: thread.author?.image }
             }
             content={thread.text}

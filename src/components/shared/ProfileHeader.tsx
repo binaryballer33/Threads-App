@@ -8,6 +8,7 @@ type ProfileHeaderProps = {
   username: string;
   imgUrl: string;
   bio: string;
+  type?: "User" | "Community";
 };
 
 function ProfileHeader(props: ProfileHeaderProps) {

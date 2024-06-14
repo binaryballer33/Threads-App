@@ -1,6 +1,7 @@
 import { Thread } from "@/lib/models/thread.model";
 import { User } from "../../models/user.model";
 import { connectToDB } from "../../mongoose";
+import { Community } from "@/lib/models/community.model";
 
 export async function getUserPosts(userId: string) {
   try {
@@ -10,11 +11,18 @@ export async function getUserPosts(userId: string) {
     const userWithThreads = await User.findOne({ id: userId }).populate({
       path: "threads",
       model: Thread,
-      populate: {
-        path: "author",
-        model: User,
-        select: "name image id", // Select the "name" and "_id" fields from the "User" model
-      },
+      populate: [
+        {
+          path: "community",
+          model: Community,
+          select: "name id image _id", // Select the "name" and "_id" fields from the "Community" model
+        },
+        {
+          path: "author",
+          model: User,
+          select: "name image id", // Select the "name" and "_id" fields from the "User" model
+        },
+      ],
     });
     return userWithThreads;
   } catch (error) {
