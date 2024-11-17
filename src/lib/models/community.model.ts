@@ -17,4 +17,4 @@ const communitySchema = new mongoose.Schema({
 });
 
 // if the model already exists, use it, otherwise create a new one
-export const Community = mongoose.models.Community || mongoose.model("Community", communitySchema);
+export const Community = mongoose.models?.Community || mongoose.model("Community", communitySchema);

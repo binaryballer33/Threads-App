@@ -22,4 +22,4 @@ const threadSchema = new mongoose.Schema({
 });
 
 // if the model already exists, use it, otherwise create a new one
-export const Thread = mongoose.models.Thread || mongoose.model("Thread", threadSchema);
+export const Thread = mongoose.models?.Thread || mongoose.model("Thread", threadSchema);
