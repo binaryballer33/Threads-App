@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	image: String,
 	bio: String,
-	/* this is how you create a one to many relationship in mongoose,
+	/* this is how you create a one-to-many relationship in mongoose,
 	 * has to be in the form of an array of objects ( one to many )
 	 * the ref is the name of the model you want to reference
 	 * the type is the type of the id in the referenced model
