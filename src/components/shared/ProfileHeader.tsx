@@ -17,8 +17,8 @@ function ProfileHeader(props: ProfileHeaderProps) {
     <div className="flex flex-col w-full justify-start ">
       <div className="flex items-center justify-between ">
         <div className="flex items-center gap-3">
-          <div className="size-20 relative object-cover">
-            <Image src={imgUrl} alt="Profile Image" fill className="rounded-full object-cover shadow-2xl" />
+          <div className="relative object-cover">
+            <Image src={imgUrl} alt="Profile Image" fill className=" rounded-full object-cover shadow-2xl" />
           </div>
           <div className="flex-1">
             <h2 className="text-left text-heading3-bold text-light-1">{name}</h2>
